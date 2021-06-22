@@ -16,7 +16,7 @@
            <p class="card-text">Text</p>
        </div>
        <div class="card-body">
-           <a href="#" class="card-link">Another link</a>
+           <a href="{{route('cart.add',$products->id)}}" class="card-link">Add To Cart</a>
        </div>
    </div>
 

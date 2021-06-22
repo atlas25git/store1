@@ -18,3 +18,6 @@ Route::redirect('/', '/home');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/add-to-cart/{product}', [App\Http\Controllers\cartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::get('/cart', [App\Http\Controllers\cartController::class, 'index'])->name('cart.index')->middleware('auth');
