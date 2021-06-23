@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Cart;
+use App\Coupon;
 use App\Models\Product;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
-class cartController extends Controller
+class CartController extends Controller
 {
     public function add(Product $product)
     {
-        dd($product);
-
+        // add the product to cart
         \Cart::session(auth()->id())->add(array(
             'id' => $product->id,
             'name' => $product->name,
@@ -20,10 +22,19 @@ class cartController extends Controller
             'attributes' => array(),
             'associatedModel' => $product
         ));
-        return back();
+
+
+
+        return redirect()->route('cart.index');
+
     }
+
     public function index()
     {
-        return view('cart.index');
+
+        $cartItems = \Cart::session(auth()->id())->getContent();
+
+
+        return view('cart.index', compact('cartItems'));
     }
 }
