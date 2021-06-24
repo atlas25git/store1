@@ -37,4 +37,32 @@ class CartController extends Controller
 
         return view('cart.index', compact('cartItems'));
     }
+
+    public function destroy($itemId)
+    {
+
+       \Cart::session(auth()->id())->remove($itemId);
+
+        return back();
+    }
+
+    public function update($rowId)
+    {
+
+        \Cart::session(auth()->id())->update($rowId, [
+            'quantity' => [
+                'relative' => false,
+                'value' => request('quantity')
+            ]
+        ]);
+
+        return back();
+    }
+
+    public function checkout()
+    {
+        return view('cart.checkout');
+    }
+
+
 }
